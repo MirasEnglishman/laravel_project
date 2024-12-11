@@ -11,12 +11,18 @@ class Product extends Model
 
     // Поля, доступные для массового заполнения
     protected $fillable = [
-        'name',
-        'content',
-        'image',
-        'price',
-        'published',
-        'created_at',
-        'updated_at',
+        'name',           // Название продукта
+        'description',    // Описание продукта (длинный текст)
+        'image',          // Основное изображение
+        'images',         // Список изображений в формате JSON
+        'category_id', // Внешний ключ для подкатегории
     ];
+
+    /**
+     * Связь с моделью SubCategory (многие к одному).
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'category_id');
+    }
 }

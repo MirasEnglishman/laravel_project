@@ -10,7 +10,8 @@ class ProductController extends Controller
     // Метод для получения всех продуктов
     public function index()
     {
-        $products = Product::all();
+        // Получение всех продуктов с их подкатегориями
+        $products = Product::with('category')->get();
         return response()->json($products);
     }
 
@@ -20,18 +21,18 @@ class ProductController extends Controller
         // Валидация данных
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'content' => 'nullable|string',
+            'description' => 'nullable|string',
             'image' => 'nullable|string|max:255',
-            'price' => 'required|numeric',
-            'published' => 'required|boolean',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|string|max:255', // Проверка каждого изображения в массиве
+            'category_id' => 'required|exists:category,id', // Проверка существования подкатегории
         ]);
 
         // Сохранение записи
+        $validated['images'] = json_encode($request->images); // Преобразование массива в JSON
         Product::create($validated);
 
-        return response()->json(['message' => 'Продукт успешно добавлен!'], 200);
+        return response()->json(['message' => 'Продукт успешно добавлен!'], 201);
     }
 
     // Метод для обновления существующего продукта
@@ -42,15 +43,15 @@ class ProductController extends Controller
         // Валидация данных
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'content' => 'nullable|string',
+            'description' => 'nullable|string',
             'image' => 'nullable|string|max:255',
-            'price' => 'required|numeric',
-            'published' => 'required|boolean',
-            'created_at' => 'nullable|date',
-            'updated_at' => 'nullable|date',
+            'images' => 'nullable|array',
+            'images.*' => 'nullable|string|max:255', // Проверка каждого изображения в массиве
+            'category_id' => 'required|exists:category,id', // Проверка существования подкатегории
         ]);
 
         // Обновление записи
+        $validated['images'] = json_encode($request->images); // Преобразование массива в JSON
         $product->update($validated);
 
         return response()->json(['message' => 'Продукт успешно обновлен!'], 200);
