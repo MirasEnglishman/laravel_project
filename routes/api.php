@@ -27,23 +27,23 @@ Route::post('register', [AuthController::class, 'register']); // Регистр�
 Route::post('me', [AuthController::class, 'me']);            // Текущий пользователь
 
 Route::get('/contacts', [ContactController::class, 'index']);
-Route::get('/contacts/{id}', [ContactController::class, 'show']);
 
 Route::get('/products', [ProductController::class, 'index']);
-Route::get('/products/{id}', [ProductController::class, 'show']);
 
 Route::get('/clients', [ClientController::class, 'index']);
-Route::get('/clients/{id}', [ClientController::class, 'show']);
 
 Route::get('/orders', [OrderController::class, 'index']);
-Route::get('/orders/{id}', [OrderController::class, 'show']);
 
 Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/categories/{id}', [CategoryController::class, 'show']);
 
 
 
-Route::group(['middleware' => ['jwt.auth']], function () {
+Route::group([
+    'middleware' => [
+        'jwt.auth',
+        'ensureUserHasRole:admin' // <-- Проверка, что пользователь имеет роль "admin"
+    ]
+],function () {
     // Маршруты для контактов
 
     Route::post('/contacts', [ContactController::class, 'store']);
