@@ -4,6 +4,7 @@ namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+
 class Kernel extends HttpKernel
 {
     /**
@@ -48,7 +49,7 @@ class Kernel extends HttpKernel
         'jwt.auth'   => \Tymon\JWTAuth\Http\Middleware\Authenticate::class,
 
         // Spatie-проверка ролей/разрешений
-        'ensureUserHasRole' => \App\Http\Middleware\EnsureUserHasRole::class,
+        'role'       => \Spatie\Permission\Middleware\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
     ];
 }
