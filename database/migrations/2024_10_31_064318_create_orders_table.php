@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->constrained()->onDelete('cascade'); // Внешний ключ для product_id
-            $table->foreignId('client_id')->constrained()->onDelete('cascade');  // Внешний ключ для client_id
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');  // Внешний ключ для user_id
             $table->date('date'); // Поле для даты
             $table->timestamps();
         });

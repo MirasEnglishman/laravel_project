@@ -10,7 +10,7 @@ class OrderController extends Controller
     // Получить список всех заказов
     public function index()
     {
-        $orders = Order::with(['product', 'client'])->get();
+        $orders = Order::with(['product', 'user'])->get();
         return response()->json($orders);
     }
 
@@ -19,7 +19,7 @@ class OrderController extends Controller
     {
         $validatedData = $request->validate([
             'product_id' => 'required|exists:products,id',
-            'client_id' => 'required|exists:clients,id',
+            'user_id' => 'required|exists:users,id',
             'date' => 'required|date',
         ]);
 
@@ -31,7 +31,7 @@ class OrderController extends Controller
     // Получить информацию о конкретном заказе
     public function show($id)
     {
-        $order = Order::with(['product', 'client'])->findOrFail($id);
+        $order = Order::with(['product', 'user'])->findOrFail($id);
         return response()->json($order);
     }
 
@@ -42,7 +42,7 @@ class OrderController extends Controller
 
         $validatedData = $request->validate([
             'product_id' => 'required|exists:products,id',
-            'client_id' => 'required|exists:clients,id',
+            'user_id' => 'required|exists:users,id',
             'date' => 'required|date',
         ]);
 

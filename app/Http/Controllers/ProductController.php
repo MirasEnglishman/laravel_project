@@ -24,8 +24,9 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|string|max:255',
             'images' => 'nullable|array',
-            'images.*' => 'nullable|string|max:255', // Проверка каждого изображения в массиве
-            'category_id' => 'required|exists:category,id', // Проверка существования подкатегории
+            'images.*' => 'url',// Проверка каждого изображения в массиве
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0'// Проверка существования подкатегории
         ]);
 
         // Сохранение записи
@@ -46,8 +47,9 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|string|max:255',
             'images' => 'nullable|array',
-            'images.*' => 'nullable|string|max:255', // Проверка каждого изображения в массиве
-            'category_id' => 'required|exists:category,id', // Проверка существования подкатегории
+            'images.*' => 'url',// Проверка каждого изображения в массиве
+            'category_id' => 'required|exists:categories,id',
+            'price' => 'required|numeric|min:0'// Проверка существования подкатегории
         ]);
 
         // Обновление записи

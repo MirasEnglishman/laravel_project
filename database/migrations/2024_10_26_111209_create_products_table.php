@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('image')->nullable(); // Основное изображение
             $table->longText('description')->nullable(); // Описание продукта (длинный текст)
             $table->json('images')->nullable(); // Список изображений в формате JSON
-            $table->unsignedBigInteger('category_id'); // Внешний ключ для подкатегории
+            $table->unsignedBigInteger('category_id'); // Внешний ключ для категории
+            $table->decimal('price', 10, 2)->default(0); // Цена продукта (формат 10 чисел, 2 знака после запятой)
             $table->timestamps();
 
-            // Добавление внешнего ключа для связи с подкатегориями
+            // Добавление внешнего ключа для связи с категориями
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
     }

@@ -16,6 +16,7 @@ class Product extends Model
         'image',          // Основное изображение
         'images',         // Список изображений в формате JSON
         'category_id', // Внешний ключ для подкатегории
+        'price'
     ];
 
     /**
